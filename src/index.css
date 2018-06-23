@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.square{
+  width: 33%;
+  float: left;
+  height: 33%;
+}
+
+.player1.P1{
+  display: none;
+}
+
+.player2.P2{
+  display: none;
+}
