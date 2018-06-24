@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Square from './square';
 import { withRouter } from 'react-router-dom';
 import Players from './players';
 import PlayerHeader from './PlayerHeader';
-import background from './img/background.png';
 import WhoWon from './WhoWon';
 
 class Board extends Component {

@@ -3,12 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Board from './Board'; 
 import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom'
+  BrowserRouter as Router} from 'react-router-dom'
 class App extends Component {
   render() {
     return (
