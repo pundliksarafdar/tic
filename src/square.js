@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import x from './img/x.png'; 
 import o from './img/o.png'; 
+import x_white from './img/x_white.png'; 
+import o_white from './img/o_white.png'; 
+import blank_black from './img/blank_black.jpg'; 
 import blank from './img/blank.jpg';
 class Square extends Component {
 
@@ -19,11 +22,8 @@ class Square extends Component {
     }  
 
     onclick(){
-        
-            this.setState({clicked : true});
-            this.props.onClick(this.props.sqRow,this.props.sqCol);
-        
-        
+        this.setState({clicked : true});
+        this.props.onClick(this.props.sqRow,this.props.sqCol);        
     };
 
     getClickedClass(){
@@ -31,7 +31,11 @@ class Square extends Component {
     }
 
     getImgPath(){
-        return this.props.played?(this.props.played==="P1"?x:o):blank;
+        if(this.props.theme == "light"){
+            return this.props.played?(this.props.played==="P1"?x:o):blank;
+        }else{
+            return this.props.played?(this.props.played==="P1"?x_white:o_white):blank_black;
+        }
     }
 
     getHeight(){
@@ -41,7 +45,7 @@ class Square extends Component {
 
 render() {
     return (
-      <div className={this.props.played+" "+this.getClickedClass()} onClick={this.onclick} style={{border:"solid 2px"}}>
+      <div className={this.props.played+" square "+this.getClickedClass()} onClick={this.onclick}>
         <img ref={this.myImg} src={this.getImgPath()} width="30%" height={this.state.height}/>
       </div>
     );

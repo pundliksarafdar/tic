@@ -17,3 +17,29 @@ body {
 .player2.P2{
   display: none;
 }
+
+.gridRow:nth-child(3){
+  border-style: solid;
+  border-width: 2px 0px 2px 0px;
+}
+
+.gridRow .square:nth-child(2){
+  border-style: solid;
+  border-width: 0px 2px 0px 2px;
+}
+
+.boards{
+  margin: 20px;
+}
+
+.dark{
+  background:black;
+}
+
+.light{
+  background: white;
+}
+
+.navbar.navbar-dark.bg-dark{
+  color:white;
+}

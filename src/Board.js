@@ -15,12 +15,13 @@ class Board extends Component {
     this.player1 = "P1";
     this.player2 = "P2";
     this.state.playStatus = new Array(this.ARR_HGT);
+    this.state.theme = "light";
     this.getGrid = this.getGrid.bind(this);
     this.loadPlayState = this.loadPlayState.bind(this);
     this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
     this.whoComplete = this.whoComplete.bind(this);
     this.onStartGame = this.onStartGame.bind(this);
-
+    this.onThemeChange = this.onThemeChange.bind(this);
     this.playSquence = [];
     this.cTime = new Date().getTime();
   }
@@ -47,6 +48,13 @@ class Board extends Component {
         this.state.playStatus[i] = new Array(this.ARR_WDT);      
       }
     }
+
+    if(sessionStorage.played){
+      this.state.played = sessionStorage.played;
+    }
+    if(sessionStorage.theme){
+      this.state.theme = sessionStorage.theme;
+    }
   }
 
   onClickCell(row,col){
@@ -56,6 +64,7 @@ class Board extends Component {
     this.playSquence.push({row,col});
     sessionStorage.playStatus = JSON.stringify(this.state.playStatus);
     sessionStorage.playSquence = JSON.stringify(this.playSquence);
+    sessionStorage.played = this.state.played;
     let whoWon = this.whoComplete();
     if(whoWon){
       this.setState({whoWon});
@@ -101,9 +110,9 @@ class Board extends Component {
     for(var i=0;i<this.ARR_HGT;i++){
       var row = [];
       for(var j=0;j<this.ARR_WDT;j++){
-        row.push(<Square sqRow={i} sqCol={j} played={this.state.playStatus[i][j]} onClick={this.onClickCell}/>);
+        row.push(<Square theme={this.state.theme} sqRow={i} sqCol={j} played={this.state.playStatus[i][j]} onClick={this.onClickCell}/>);
       } 
-      grid.push(<div style={{display:"block"}}>{row}</div>);
+      grid.push(<div className="gridRow" style={{display:"flex"}}>{row}</div>);
     }
 
     return grid;
@@ -115,13 +124,19 @@ class Board extends Component {
     this.setState(userData);
   }
 
+  onThemeChange(theme){
+    this.setState({theme});
+    sessionStorage.theme = theme;
+  }
+
+  
   render() {
     return (
-      <div className="boards">
+      <div className={this.state.theme+" boards"}>
         {!this.state.whoWon?
           (!this.state.gameStarted)? 
             <Players onStartGame={this.onStartGame}/>:
-            <div><PlayerHeader played={this.state.played} player1Name={this.state.player1Name} player2Name={this.state.player2Name}/>
+            <div><PlayerHeader theme={this.state.theme} onThemeChange={this.onThemeChange} played={this.state.played} player1Name={this.state.player1Name} player2Name={this.state.player2Name}/>
             {this.getGrid()}            
           </div>:<WhoWon winner={this.state.whoWon=="P1"?this.state.player1Name:this.state.player2Name}/>}
       </div>
